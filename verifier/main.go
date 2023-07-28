@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"gate-zkmerkle-proof/circuit"
+	prover_server "gate-zkmerkle-proof/service/prover_service"
 	"gate-zkmerkle-proof/utils"
 	"gate-zkmerkle-proof/verifier/config"
 	"github.com/consensys/gnark-crypto/ecc"
@@ -81,7 +82,7 @@ func main() {
 			panic(err.Error())
 		}
 
-		vk, err := src.LoadVerifyingKey(verifierConfig.ZkKeyName)
+		vk, err := prover_server.LoadVerifyingKey(verifierConfig.ZkKeyName)
 		if err != nil {
 			panic(err.Error())
 		}

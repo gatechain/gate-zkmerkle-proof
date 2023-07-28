@@ -31,6 +31,10 @@ func main() {
 	rootCmd.AddCommand(
 		client.KeygenCommand(),
 		client.WitnessCommand(),
+		client.ProverCommand(),
+		client.UserProofCommand(),
+		client.VerifyCommand(),
+		client.ToolCommand(),
 	)
 
 	if err = rootCmd.Execute(); err != nil {
