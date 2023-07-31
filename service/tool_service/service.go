@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"gate-zkmerkle-proof/global"
 	prover_server "gate-zkmerkle-proof/service/prover_service"
+	"gate-zkmerkle-proof/service/witness_service"
 	"gate-zkmerkle-proof/utils"
-	"gate-zkmerkle-proof/witness/src"
 	"github.com/go-redis/redis/v8"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -52,7 +52,7 @@ func CheckProverStatus() {
 	if err != nil {
 		panic(err.Error())
 	}
-	witnessModel := src.NewWitnessModel(db, dbtoolConfig.DbSuffix)
+	witnessModel := witness_service.NewWitnessModel(db, dbtoolConfig.DbSuffix)
 	proofModel := prover_server.NewProofModel(db, dbtoolConfig.DbSuffix)
 
 	witnessCounts, err := witnessModel.GetRowCounts()
@@ -70,7 +70,7 @@ func QueryCexAssets() {
 	if err != nil {
 		panic(err.Error())
 	}
-	witnessModel := src.NewWitnessModel(db, dbtoolConfig.DbSuffix)
+	witnessModel := witness_service.NewWitnessModel(db, dbtoolConfig.DbSuffix)
 	latestWitness, err := witnessModel.GetLatestBatchWitness()
 	if err != nil {
 		panic(err.Error())

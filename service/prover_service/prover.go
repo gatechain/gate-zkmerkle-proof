@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"gate-zkmerkle-proof/witness/src"
+	"gate-zkmerkle-proof/service/witness_service"
 	"os"
 	"runtime"
 	"time"
@@ -32,7 +32,7 @@ func WithRedis(redisType string, redisPass string) redis.Option {
 }
 
 type Prover struct {
-	witnessModel src.WitnessModel
+	witnessModel witness_service.WitnessModel
 	proofModel   ProofModel
 	redisConn    *redis.Redis
 
@@ -49,7 +49,7 @@ func NewProver(config *config.Config) *Prover {
 		panic(err.Error())
 	}
 	prover := Prover{
-		witnessModel: src.NewWitnessModel(db, config.DbSuffix),
+		witnessModel: witness_service.NewWitnessModel(db, config.DbSuffix),
 		proofModel:   NewProofModel(db, config.DbSuffix),
 		redisConn:    redisConn,
 		SessionName:  config.ZkKeyName,
@@ -95,7 +95,7 @@ func NewProver(config *config.Config) *Prover {
 
 func (p *Prover) Run(flag bool) {
 	p.proofModel.CreateProofTable()
-	batchWitnessFetch := func() (*src.BatchWitness, error) {
+	batchWitnessFetch := func() (*witness_service.BatchWitness, error) {
 		lock := utils.GetRedisLockByKey(p.redisConn, utils.RedisLockKey)
 		err := utils.TryAcquireLock(lock)
 		if err != nil {
@@ -105,20 +105,20 @@ func (p *Prover) Run(flag bool) {
 		defer lock.Release()
 
 		// Fetch unproved block witness.
-		blockWitness, err := p.witnessModel.GetLatestBatchWitnessByStatus(src.StatusPublished)
+		blockWitness, err := p.witnessModel.GetLatestBatchWitnessByStatus(witness_service.StatusPublished)
 		if err != nil {
 			return nil, err
 		}
 		// Update status of block witness.
-		err = p.witnessModel.UpdateBatchWitnessStatus(blockWitness, src.StatusReceived)
+		err = p.witnessModel.UpdateBatchWitnessStatus(blockWitness, witness_service.StatusReceived)
 		if err != nil {
 			return nil, err
 		}
 		return blockWitness, nil
 	}
 
-	batchWitnessFetchForRerun := func() (*src.BatchWitness, error) {
-		blockWitness, err := p.witnessModel.GetLatestBatchWitnessByStatus(src.StatusReceived)
+	batchWitnessFetchForRerun := func() (*witness_service.BatchWitness, error) {
+		blockWitness, err := p.witnessModel.GetLatestBatchWitnessByStatus(witness_service.StatusReceived)
 		if err != nil {
 			return nil, err
 		}
@@ -126,7 +126,7 @@ func (p *Prover) Run(flag bool) {
 	}
 
 	for {
-		var batchWitness *src.BatchWitness
+		var batchWitness *witness_service.BatchWitness
 		var err error
 		if !flag {
 			batchWitness, err = batchWitnessFetch()
@@ -195,7 +195,7 @@ func (p *Prover) Run(flag bool) {
 		_, err = p.proofModel.GetProofByBatchNumber(batchWitness.Height)
 		if err == nil {
 			fmt.Printf("blockProof of height %d exists\n", batchWitness.Height)
-			err = p.witnessModel.UpdateBatchWitnessStatus(batchWitness, src.StatusFinished)
+			err = p.witnessModel.UpdateBatchWitnessStatus(batchWitness, witness_service.StatusFinished)
 			if err != nil {
 				fmt.Println("update witness error:", err.Error())
 			}
@@ -214,7 +214,7 @@ func (p *Prover) Run(flag bool) {
 			fmt.Printf("create blockProof of height %d failed\n", batchWitness.Height)
 			return
 		}
-		err = p.witnessModel.UpdateBatchWitnessStatus(batchWitness, src.StatusFinished)
+		err = p.witnessModel.UpdateBatchWitnessStatus(batchWitness, witness_service.StatusFinished)
 		if err != nil {
 			fmt.Println("update witness error:", err.Error())
 		}

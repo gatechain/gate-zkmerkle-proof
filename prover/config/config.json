@@ -1,9 +1,0 @@
-{
-  "MysqlDataSource" : "root:mysqlpw@tcp(127.0.0.1:55000)/zkpos?parseTime=true",
-  "Redis": {
-    "Host": "127.0.0.1:6379",
-    "Type": "node"
-  },
-  "DbSuffix": "0",
-  "ZkKeyName": "../zkpor4"
-}

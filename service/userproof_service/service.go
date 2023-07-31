@@ -101,30 +101,6 @@ func CalculateAccountTreeRoot(accountLeaves <-chan AccountLeave, accountTree *zk
 }
 
 func Handler() {
-	//memoryTreeFlag := flag.Bool("memory_tree", false, "construct memory merkle tree")
-	//remotePasswdConfig := flag.String("remote_password_config", "", "fetch password from aws secretsmanager")
-	//flag.Parse()
-	//
-	//content, err := ioutil.ReadFile("./config/config.json")
-	//if err != nil {
-	//	panic(err.Error())
-	//}
-	//err = json.Unmarshal(content, userProofConfig)
-	//if err != nil {
-	//	panic(err.Error())
-	//}
-	//if *remotePasswdConfig != "" {
-	//	s, err := utils.GetMysqlSource(userProofConfig.MysqlDataSource, *remotePasswdConfig)
-	//	if err != nil {
-	//		panic(err.Error())
-	//	}
-	//	userProofConfig.MysqlDataSource = s
-	//}
-	//if *memoryTreeFlag {
-	//	ComputeAccountRootHash(userProofConfig)
-	//	return
-	//}
-
 	userProofConfig := global.Cfg
 	accountTree, err := utils.NewAccountTree(userProofConfig.TreeDB.Driver, userProofConfig.TreeDB.Option.Addr)
 	accounts := HandleUserData(userProofConfig)

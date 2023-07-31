@@ -1,5 +1,5 @@
 {
   "ProofTable": "./config/proof.csv",
   "ZkKeyName": "./zkpor4",
-  "CexAssetsInfo": [{"TotalEquity":245000000,"TotalDebt":0,"BasePrice":7350000000000,"Symbol":"btc","Index":0},{"TotalEquity":245000000,"TotalDebt":0,"BasePrice":490000000000,"Symbol":"eth","Index":1}]
+  "CexAssetsInfo": [{"TotalEquity":280000000,"TotalDebt":0,"BasePrice":8400000000000,"Symbol":"btc","Index":0},{"TotalEquity":280000000,"TotalDebt":0,"BasePrice":560000000000,"Symbol":"eth","Index":1}]
 }

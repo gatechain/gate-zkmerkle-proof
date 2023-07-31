@@ -1,6 +1,0 @@
-{
-  "ProofTable": "./config/proof.csv",
-  "ZkKeyName": "../zkpor4",
-  "CexAssetsInfo": [{"TotalEquity":245000000,"TotalDebt":0,"BasePrice":7350000000000,"Symbol":"btc","Index":0},{"TotalEquity":245000000,"TotalDebt":0,"BasePrice":490000000000,"Symbol":"eth","Index":1}]
-
-}
