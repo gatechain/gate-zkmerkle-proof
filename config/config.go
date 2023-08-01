@@ -30,11 +30,11 @@ type CexConfig struct {
 }
 
 type UserConfig struct {
-	AccountIndex  uint32
-	AccountIdHash string
-	TotalEquity   big.Int
-	TotalDebt     big.Int
-	Root          string
-	Assets        []utils.AccountAsset
-	Proof         []string
+	Arrangement          uint32
+	UniqueIdentification string
+	TotalAssetEquity     *big.Int
+	TotalAssetDebt       *big.Int
+	AssetDetails         []utils.AccountAsset
+	TreeRootHash         string
+	MerkleProofEncode    []string
 }

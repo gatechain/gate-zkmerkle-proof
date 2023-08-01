@@ -205,7 +205,7 @@ func worker(jobs <-chan Job, results chan<- *UserProof, nums chan<- int, root st
 func ConvertAccount(account *utils.AccountInfo, leafHash []byte, proof [][]byte, root string) *UserProof {
 	var userProof UserProof
 	var userConfig UserConfig
-	userProof.AccountIndex = account.AccountIndex
+	userProof.UserArrangement = account.AccountIndex
 	userProof.AccountId = hex.EncodeToString(account.AccountId)
 	userProof.AccountLeafHash = hex.EncodeToString(leafHash)
 	proofSerial, err := json.Marshal(proof)
@@ -218,13 +218,13 @@ func ConvertAccount(account *utils.AccountInfo, leafHash []byte, proof [][]byte,
 	userProof.TotalDebt = account.TotalDebt.String()
 	userProof.TotalEquity = account.TotalEquity.String()
 
-	userConfig.AccountIndex = account.AccountIndex
-	userConfig.AccountIdHash = hex.EncodeToString(account.AccountId)
-	userConfig.Proof = proof
-	userConfig.Root = root
-	userConfig.Assets = account.Assets
-	userConfig.TotalDebt = account.TotalDebt
-	userConfig.TotalEquity = account.TotalEquity
+	userConfig.Arrangement = account.AccountIndex
+	userConfig.UniqueIdentification = hex.EncodeToString(account.AccountId)
+	userConfig.MerkleProofEncode = proof
+	userConfig.TreeRootHash = root
+	userConfig.AssetDetails = account.Assets
+	userConfig.TotalAssetDebt = account.TotalDebt
+	userConfig.TotalAssetEquity = account.TotalEquity
 	configSerial, err := json.Marshal(userConfig)
 	if err != nil {
 		panic(err.Error())

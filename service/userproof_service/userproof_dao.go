@@ -25,6 +25,7 @@ type (
 
 	UserProof struct {
 		AccountIndex    uint32 `gorm:"index:idx_int,unique"`
+		UserArrangement uint32 `gorm:"index:idx_int,unique"`
 		AccountId       string `gorm:"index:idx_str,unique"`
 		AccountLeafHash string
 		TotalEquity     string
@@ -35,13 +36,13 @@ type (
 	}
 
 	UserConfig struct {
-		AccountIndex  uint32
-		AccountIdHash string
-		TotalEquity   *big.Int
-		TotalDebt     *big.Int
-		Assets        []utils.AccountAsset
-		Root          string
-		Proof         [][]byte
+		Arrangement          uint32
+		UniqueIdentification string
+		TotalAssetEquity     *big.Int
+		TotalAssetDebt       *big.Int
+		AssetDetails         []utils.AccountAsset
+		TreeRootHash         string
+		MerkleProofEncode    [][]byte
 	}
 )
 

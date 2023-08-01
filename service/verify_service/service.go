@@ -192,14 +192,14 @@ func UserVerify() {
 	if err != nil {
 		panic(err.Error())
 	}
-	root, err := hex.DecodeString(userConfig.Root)
+	root, err := hex.DecodeString(userConfig.TreeRootHash)
 	if err != nil || len(root) != 32 {
 		panic("invalid account tree root")
 	}
 
 	var proof [][]byte
-	for i := 0; i < len(userConfig.Proof); i++ {
-		p, err := base64.StdEncoding.DecodeString(userConfig.Proof[i])
+	for i := 0; i < len(userConfig.MerkleProofEncode); i++ {
+		p, err := base64.StdEncoding.DecodeString(userConfig.MerkleProofEncode[i])
 		if err != nil || len(p) != 32 {
 			panic("invalid proof")
 		}
@@ -211,20 +211,20 @@ func UserVerify() {
 	for i := 0; i < utils.AssetCounts; i++ {
 		userAssets[i].Index = uint16(i)
 	}
-	for i := 0; i < len(userConfig.Assets); i++ {
-		userAssets[userConfig.Assets[i].Index] = userConfig.Assets[i]
+	for i := 0; i < len(userConfig.AssetDetails); i++ {
+		userAssets[userConfig.AssetDetails[i].Index] = userConfig.AssetDetails[i]
 	}
 	hasher := poseidon.NewPoseidon()
 	assetCommitment := utils.ComputeUserAssetsCommitment(&hasher, userAssets)
 	hasher.Reset()
 	// compute new account leaf node hash
-	accountIdHash, err := hex.DecodeString(userConfig.AccountIdHash)
+	accountIdHash, err := hex.DecodeString(userConfig.UniqueIdentification)
 	if err != nil || len(accountIdHash) != 32 {
 		panic("the AccountIdHash is invalid")
 	}
-	accountHash := poseidon.PoseidonBytes(accountIdHash, userConfig.TotalEquity.Bytes(), userConfig.TotalDebt.Bytes(), assetCommitment)
+	accountHash := poseidon.PoseidonBytes(accountIdHash, userConfig.TotalAssetEquity.Bytes(), userConfig.TotalAssetDebt.Bytes(), assetCommitment)
 	fmt.Printf("merkle leave hash: %x\n", accountHash)
-	verifyFlag := utils.VerifyMerkleProof(root, userConfig.AccountIndex, proof, accountHash)
+	verifyFlag := utils.VerifyMerkleProof(root, userConfig.Arrangement, proof, accountHash)
 	if verifyFlag {
 		fmt.Println("verify pass!!!")
 	} else {

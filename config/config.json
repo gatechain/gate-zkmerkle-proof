@@ -1,6 +1,6 @@
 {
   "MysqlDataSource" : "root:mysqlpw@tcp(127.0.0.1:55000)/zkpos?parseTime=true",
-  "DbSuffix": "2",
+  "DbSuffix": "0",
   "UserDataFile": "./",
   "TreeDB": {
     "Driver": "redis",
