@@ -38,12 +38,12 @@ func CexVerify() {
 		panic(err.Error())
 	}
 
-	vk, err := prover_server.LoadVerifyingKey(cexConfig.ZkKeyName)
+	vk, err := prover_server.LoadVerifyingKey(cexConfig.ZkKeyVKDirectoryAndPrefix)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	f, err := os.Open(cexConfig.ProofTable)
+	f, err := os.Open(cexConfig.ProofCsv)
 	if err != nil {
 		panic(err.Error())
 	}

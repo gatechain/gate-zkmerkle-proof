@@ -24,9 +24,9 @@ type Config struct {
 }
 
 type CexConfig struct {
-	ProofTable    string
-	ZkKeyName     string
-	CexAssetsInfo []utils.CexAssetInfo
+	ProofCsv                  string
+	ZkKeyVKDirectoryAndPrefix string
+	CexAssetsInfo             []utils.CexAssetInfo
 }
 
 type UserConfig struct {
