@@ -205,7 +205,7 @@ func worker(jobs <-chan Job, results chan<- *UserProof, nums chan<- int, root st
 func ConvertAccount(account *utils.AccountInfo, leafHash []byte, proof [][]byte, root string) *UserProof {
 	var userProof UserProof
 	var userConfig UserConfig
-	userProof.UserArrangement = account.AccountIndex
+	userProof.AccountIndex = account.AccountIndex
 	userProof.AccountId = hex.EncodeToString(account.AccountId)
 	userProof.AccountLeafHash = hex.EncodeToString(leafHash)
 	proofSerial, err := json.Marshal(proof)

@@ -25,7 +25,6 @@ type (
 
 	UserProof struct {
 		AccountIndex    uint32 `gorm:"index:idx_int,unique"`
-		UserArrangement uint32 `gorm:"index:idx_int,unique"`
 		AccountId       string `gorm:"index:idx_str,unique"`
 		AccountLeafHash string
 		TotalEquity     string
