@@ -11,9 +11,9 @@ You need to install  mysql, redis , kvrocks
 ## command
 ```
     ./main keygen     // zk key generate
-    ./mian witness   // generate witness data
-    ./mian prover   // generate zk proof 
-    ./mian userproof   // generate zk proof 
+    ./main witness   // generate witness data
+    ./main prover   // generate zk proof 
+    ./main userproof   // generate zk proof 
     ./main verify cex  
     ./main verify user
 ```
