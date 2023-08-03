@@ -5,7 +5,7 @@ You need to install  mysql, redis , kvrocks
 
 ## install
 ```
-    make build-darwin   // compile on mac
+    make build
 ```
 
 ## command
