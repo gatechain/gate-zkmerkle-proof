@@ -3,14 +3,19 @@ gate-zkmerkle-proof repo
 ## Prerequisit
 You need to install  mysql, redis , kvrocks
 
-##command
+## install
 ```
-    ./main.go keygen     // zk key generate
-    ./mian.go witness   // generate witness data
-    ./mian.go prover   // generate zk proof 
-    ./mian.go userproof   // generate zk proof 
-    ./main.go verify cex  
-    ./main.go verify user
+    make build-darwin   // compile on mac
+```
+
+## command
+```
+    ./main keygen     // zk key generate
+    ./mian witness   // generate witness data
+    ./mian prover   // generate zk proof 
+    ./mian userproof   // generate zk proof 
+    ./main verify cex  
+    ./main verify user
 ```
 
 ## directory structure
