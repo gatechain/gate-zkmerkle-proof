@@ -6,12 +6,10 @@ import (
 )
 
 const (
-	//BatchCreateUserOpsCounts = 864
-	BatchCreateUserOpsCounts = 4
+	BatchCreateUserOpsCounts = 864
 	AccountTreeDepth         = 28
 	AssetCounts              = 350
-	//AssetCounts  = 2
-	RedisLockKey = "prover_mutex_key"
+	RedisLockKey             = "prover_mutex_key"
 )
 
 var (
