@@ -194,14 +194,20 @@ func ReadUserDataFromCsvFile(name string) ([]AccountInfo, []CexAssetInfo, error)
 			multiplier = 100000000000000
 		}
 
-		for _, v := range data {
-			basePrice, err := ConvertFloatStrToUint64(v[assetCounts*3+i+2], multiplier)
-			if err != nil {
-				fmt.Println("asset data wrong:", v[assetCounts*3+i+2], err.Error())
-				continue
-			}
-			cexAssetsInfo[i].BasePrice = cexAssetsInfo[i].BasePrice + basePrice
+		//for _, v := range data {
+		//	basePrice, err := ConvertFloatStrToUint64(v[assetCounts*3+i+2], multiplier)
+		//	if err != nil {
+		//		fmt.Println("asset data wrong:", v[assetCounts*3+i+2], err.Error())
+		//		continue
+		//	}
+		//	cexAssetsInfo[i].BasePrice = cexAssetsInfo[i].BasePrice + basePrice
+		//
+		//}
 
+		cexAssetsInfo[i].BasePrice, err = ConvertFloatStrToUint64(data[0][assetCounts*3+i+2], multiplier)
+		if err != nil {
+			fmt.Println("asset data wrong:", data[0][assetCounts*3+i+2], err.Error())
+			continue
 		}
 
 		//cexAssetsInfo[i].BasePrice, err = ConvertFloatStrToUint64(data[0][assetCounts*3+i+2], multiplier)
