@@ -19,14 +19,14 @@ var (
 	Uint64MaxValueFr              = new(fr.Element).SetBigInt(Uint64MaxValueBigInt)
 	Uint64MaxValueFrSquare        = new(fr.Element).SetBigInt(Uint64MaxValueBigIntSquare)
 	AssetTypeForTwoDigits         = map[string]bool{
-		"BTTC":  true,
-		"SHIB":  true,
-		"LUNC":  true,
-		"XEC":   true,
-		"WIN":   true,
-		"BIDR":  true,
-		"SPELL": true,
-		"HOT":   true,
-		"DOGE":  true,
+		"bttc":  true,
+		"shib":  true,
+		"lunc":  true,
+		"xec":   true,
+		"win":   true,
+		"bidr":  true,
+		"spell": true,
+		"hot":   true,
+		"doge":  true,
 	}
 )

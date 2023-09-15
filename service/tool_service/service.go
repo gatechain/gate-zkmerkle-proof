@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"gate-zkmerkle-proof/config"
 	"gate-zkmerkle-proof/global"
 	prover_server "gate-zkmerkle-proof/service/prover_service"
 	"gate-zkmerkle-proof/service/witness_service"
@@ -12,12 +13,23 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
 )
 
 func CleanKvrocks() {
+	global.Cfg = &config.Config{}
+	jsonFile, err := ioutil.ReadFile("./config/config.json")
+	if err != nil {
+		panic(fmt.Sprintf("load config err : %s", err.Error()))
+	}
+	err = json.Unmarshal(jsonFile, global.Cfg)
+	if err != nil {
+		panic(err.Error())
+	}
+
 	dbtoolConfig := global.Cfg
 	client := redis.NewClient(&redis.Options{
 		Addr:            dbtoolConfig.TreeDB.Option.Addr,
@@ -36,6 +48,16 @@ func CleanKvrocks() {
 }
 
 func CheckProverStatus() {
+	global.Cfg = &config.Config{}
+	jsonFile, err := ioutil.ReadFile("./config/config.json")
+	if err != nil {
+		panic(fmt.Sprintf("load config err : %s", err.Error()))
+	}
+	err = json.Unmarshal(jsonFile, global.Cfg)
+	if err != nil {
+		panic(err.Error())
+	}
+
 	dbtoolConfig := global.Cfg
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
@@ -65,6 +87,16 @@ func CheckProverStatus() {
 }
 
 func QueryCexAssets() {
+	global.Cfg = &config.Config{}
+	jsonFile, err := ioutil.ReadFile("./config/config.json")
+	if err != nil {
+		panic(fmt.Sprintf("load config err : %s", err.Error()))
+	}
+	err = json.Unmarshal(jsonFile, global.Cfg)
+	if err != nil {
+		panic(err.Error())
+	}
+
 	dbtoolConfig := global.Cfg
 	db, err := gorm.Open(mysql.Open(dbtoolConfig.MysqlDataSource))
 	if err != nil {
